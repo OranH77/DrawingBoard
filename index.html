@@ -1,0 +1,46 @@
+<!-- This file is the main HTML file for the drawing board website. -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing Board</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div class="drawing-mode-selection">
+        <div class="option"> 
+            <input type="color" id="color-picker" value="#000000">
+        </div>
+        <div class="option" id="draw">
+            <img style="width: 20px" src="mode_images/pencil.png" alt="Option 1">
+        </div>
+        <div class="option" id="eraser">
+            <img style="width: 20px" src="mode_images/eraser.png" alt="Option 2">
+        </div>
+        <div>
+            <button id="clear-button">Clear</button>
+        </div>
+    </div>
+
+    <div class="container">  
+        <div> 
+            <div id="chat-box">
+            </div>
+                <form id="chat-form">
+                    <div> 
+                        <input id="chat-input" type="text" placeholder="Enter your message here...">
+                    </div>
+                    <div>
+                        <input id="chat-submit-image" type="image" src="chat_images/send.png" alt="Send Message">
+                    </div>
+                </form>
+        </div>      
+        
+
+        <canvas id="drawing-board" width="800" height="600"></canvas>
+
+    </div>
+    
+    <script src="drawingScript.js"></script>
+</body>
+</html>
