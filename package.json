@@ -1,0 +1,17 @@
+{
+  "name": "drawingboard",
+  "version": "1.0.0",
+  "description": "A Drawing Board project in NodeJS.",
+  "main": "index.js", 
+  "scripts": {
+    "devStart": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^4.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

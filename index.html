@@ -5,9 +5,11 @@
 <head>
     <title>Drawing Board</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-    <h1> hello world</h1>
+    <script defer src ="http://localhost:3000/socket.io/
+     socket.io.js"></script>
+     <script defer src ="script.js"></script>
+
+  <body>
     <div class="drawing-mode-selection">
         <div class="option"> 
             <input type="color" id="color-picker" value="#000000">
@@ -25,14 +27,14 @@
 
     <div class="container">  
         <div> 
-            <div id="chat-box">
+            <div id="message-container">
             </div>
                 <form id="chat-form">
                     <div> 
-                        <input id="chat-input" type="text" placeholder="Enter your message here...">
+                        <input id="message-input" type="text" placeholder="Enter your message here...">
                     </div>
                     <div>
-                        <input id="chat-submit-image" type="image" src="chat_images/send.png" alt="Send Message">
+                        <button type="submit" id="send-button">Send</button>
                     </div>
                 </form>
         </div>      
