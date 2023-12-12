@@ -1,4 +1,4 @@
-body {
+/* body {
   background-color: #282c34;
 }
 
@@ -83,7 +83,7 @@ input {
 }
 
 button {
-  background-color: #282c34; /* Green */
+  background-color: #282c34;
   border: none;
   color: white;
   padding: 15px 32px;
@@ -99,7 +99,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-
+*/
 .sign-in {
   color: #282c34;
   background: white;
@@ -108,7 +108,7 @@ button:disabled {
 }
 
 
-
+/*
 
 ul, li {
   text-align: left;
@@ -151,4 +151,4 @@ img {
   height: 40px;
   border-radius: 50%;
   margin: 2px 5px;
-}
+} */
