@@ -49,14 +49,21 @@
           <!-- This is where the chat react app will be rendered. -->
         </div>
       </div>
-      <form id="chat-form">
+      
+      <div id="root-form">
+
+      </div>
+      <!--
+      <form id="chat-form" onSubmit="window.sendMessage(event)">
         <div>
-          <input id="chat-input" type="text" placeholder="Enter your message here..."/>
+          <input id="chat-input" type="text" placeholder="Enter your message here..." 
+          value="window.formValue" onchange="window.setFormValue(this.value)"/>
         </div>
         <div>
           <input id="chat-submit-image" type="image" src="chat_images/send.png" alt="Send Message"/>
         </div>
       </form>
+    -->
     </div>
 
     <canvas id="drawing-board" width="800" height="600"></canvas>פ

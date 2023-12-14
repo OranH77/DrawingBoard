@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 
 import firebase from 'firebase/compat/app';
@@ -30,7 +31,7 @@ function App() {
         
       </header>
       <section> 
-        {user ? <ChatRoom /> : <SignIn />}
+        {user ? <ChatRoom /> : <div id="signInDiv"> <SignIn /> </div>}
       </section>
 
     </div>
@@ -61,7 +62,14 @@ function SignIn() {
 
 function SignOut() {
   return auth.currentUser && (
-    <button onClick={() => auth.signOut()}>Sign Out</button>
+    <button style={{
+      backgroundImage: `url(../chat_images/logout.png)`,
+      backgroundSize: 'contain',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
+      width: '50px',
+      height: '50px' // Adjust the height as needed
+    }} onClick={() => auth.signOut()}></button>
   )
 }
 
@@ -79,19 +87,36 @@ function ChatRoom() {
   const sendMessage = async(e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = auth.currentUser;
-
-    await messagesRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid, 
-      photoURL
-    })
-
-    setFormValue('');
+    if (auth.currentUser) {
+      const { uid, photoURL, isAnonymous } = auth.currentUser;
+  
+      
+      if (isAnonymous) {
+      await messagesRef.add({
+        text: formValue,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        uid, 
+        "photoURL": "../chat_images/anonymous.png"
+      })
+    }
+    else {
+      await messagesRef.add({
+        text: formValue,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        uid, 
+        photoURL
+      })
+    }
+  
+      setFormValue('');
+    } else {
+      console.log("No user is signed in");
+    }
 
     dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
+
+  ReactDOM.render(<ChatForm sendMessage={sendMessage} formValue={formValue} setFormValue={setFormValue} />, document.getElementById('root-form'));
 
   return(
     <>
@@ -102,15 +127,31 @@ function ChatRoom() {
 
       </main>
 
-      <form onSubmit={sendMessage}>
+      {/*
+      <form class="chat-form" onSubmit={sendMessage}>
+         
+        <input class="chat-input" value={formValue}  onChange={(e) => setFormValue(e.target.value)}/>
 
-        <input value={formValue}  onChange={(e) => setFormValue(e.target.value)}/>
-
-        <button type="submit">Send</button>
-        
+        <button class="chat-button" type="submit">Send</button>
+      
+        {SignOut()}
       </form>
+      */}
     </>
   )
+}
+
+function ChatForm({ sendMessage, formValue, setFormValue }) {
+  return (
+    <form id="chat-form" onSubmit={sendMessage}>
+      <input id="chat-input" value={formValue}  onChange={(e) => setFormValue(e.target.value)} placeholder="Enter your message..."/>
+      <div>
+      <input id="chat-submit-image" type="image" src="chat_images/send.png" alt="Send Message"/>
+      </div>
+      {SignOut()}
+    </form>
+    
+  );
 }
 
 function ChatMessage(props) {
