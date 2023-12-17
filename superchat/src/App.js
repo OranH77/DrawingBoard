@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
 
@@ -78,7 +78,7 @@ function ChatRoom() {
   const dummy = useRef();
 
   const messagesRef = firestore.collection('messages');
-  const query = messagesRef.orderBy('createdAt').limit(25);
+  const query = messagesRef.orderBy('createdAt').limit(200);
 
   const [messages] = useCollectionData(query, {idField: 'id'});
   
@@ -112,11 +112,13 @@ function ChatRoom() {
     } else {
       console.log("No user is signed in");
     }
-
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
-  ReactDOM.render(<ChatForm sendMessage={sendMessage} formValue={formValue} setFormValue={setFormValue} />, document.getElementById('root-form'));
+  useEffect(() => {
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  ReactDOM.render(<ChatForm sendMessage={sendMessage} formValue={formValue} setFormValue={setFormValue} messagesRef={messagesRef} />, document.getElementById('root-form'));
 
   return(
     <>
@@ -141,13 +143,26 @@ function ChatRoom() {
   )
 }
 
-function ChatForm({ sendMessage, formValue, setFormValue }) {
+function ChatForm({ sendMessage, formValue, setFormValue, messagesRef }) {
+  const deleteAllMessages = async () => {
+    const query = messagesRef.orderBy('createdAt').limit(500);
+    const snapshot = await query.get();
+  
+    const batch = firestore.batch();
+    snapshot.docs.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+  
+    await batch.commit();
+  };
+  
   return (
     <form id="chat-form" onSubmit={sendMessage}>
       <input id="chat-input" value={formValue}  onChange={(e) => setFormValue(e.target.value)} placeholder="Enter your message..."/>
       <div>
       <input id="chat-submit-image" type="image" src="chat_images/send.png" alt="Send Message"/>
       </div>
+      <button style={{width: '50px'}} onClick={deleteAllMessages}>Reset Chat</button>
       {SignOut()}
     </form>
     

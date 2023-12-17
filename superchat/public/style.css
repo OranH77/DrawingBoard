@@ -18,7 +18,7 @@ body {
 .container {
     /* i want to align the canvas at the right side, and the chat 
     at the left side */
-    margin-top: 50px;
+    margin-top: 20px;
     border: 10px solid black;
     display: flex;
     justify-content: space-evenly;
@@ -41,6 +41,12 @@ body {
 }
 .option.selected {
     transform: scale(0.55);
+}
+
+.canvas-selection-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* # refers to an id, . refers to a class */

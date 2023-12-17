@@ -27,20 +27,7 @@
 </head>
 
 <body>
-  <div class="drawing-mode-selection">
-    <div class="option">
-      <input type="color" id="color-picker" value="#000000">
-    </div>
-    <div class="option" id="draw">
-      <img style="width: 20px" src="mode_images/pencil.png" alt="Option 1">
-    </div>
-    <div class="option" id="eraser">
-      <img style="width: 20px" src="mode_images/eraser.png" alt="Option 2">
-    </div>
-    <div>
-      <button id="clear-button">Clear</button>
-    </div>
-  </div>
+  
 
   <div class="container">
     <div>
@@ -65,9 +52,25 @@
       </form>
     -->
     </div>
-
-    <canvas id="drawing-board" width="800" height="600"></canvas>פ
-
+    <div class="canvas-selection-container">
+      <div class="drawing-mode-selection">
+        <div class="option">
+          <input type="color" id="color-picker" value="#000000">
+        </div>
+        <div class="option" id="draw">
+          <img style="width: 20px" src="mode_images/pencil.png" alt="Option 1">
+        </div>
+        <div class="option" id="eraser">
+          <img style="width: 20px" src="mode_images/eraser.png" alt="Option 2">
+        </div>
+        <div>
+          <button id="clear-button">Clear</button>
+        </div>
+      </div>
+      <canvas id="drawing-board" width="1000" height="600"></canvas>פ
+  
+    </div>
+    
   </div>
 
   <script src="drawingScript.js"></script>
